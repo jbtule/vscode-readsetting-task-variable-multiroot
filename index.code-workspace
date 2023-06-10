@@ -1,0 +1,19 @@
+{
+    "folders": [
+        {
+            "path": "_shared"
+        },
+        {
+            "path": "Root1"
+        },
+        {
+            "path": "Root2"
+        }
+    ],
+    "settings": {},
+    "extensions": {
+        "recommendations": [
+            "rioj7.command-variable"
+        ]
+    }
+}

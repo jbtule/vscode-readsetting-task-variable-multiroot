@@ -1,0 +1,46 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "echo",
+            "command": "echo",
+            "args": [
+                "${input:configTest}"
+            ],
+            "type": "shell",
+            "problemMatcher": []
+        }
+    ], "inputs": [
+        {
+            "id": "configTest",
+            "type": "command",
+            "command": "extension.commandvariable.file.content",
+            "args": {
+              "fileName": "${pickFile:whichWork}/.vscode/settings.json",
+              "json": "content['test.setting']",
+              "default": "missing",
+              "pickFile": {
+                "whichWork": {
+                  "description": "Which Workspace?",
+                  "include": "**/start.txt",
+                  "display": "fileName",
+                  "showDirs": true,
+                  "label"
+                }
+              }
+            }
+          },   {
+            "id": "testWork",
+            "type": "command",
+            "command": "extension.commandvariable.file.pickFile",
+            "args": {
+                "description": "Which Workspace?",
+                "include": "**/start.txt",
+                "display": "fullPath",
+                "showDirs": true
+            }
+          }
+    ]
+}
