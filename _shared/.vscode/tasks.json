@@ -4,43 +4,49 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "run echo",
             "command": "echo",
             "args": [
-                "${input:configTest}"
+                "${input:chosenFile}",
+                "${input:chosenWorkspace}",
+                "${input:workspaceConfig}",
             ],
             "type": "shell",
             "problemMatcher": []
         }
     ], "inputs": [
         {
-            "id": "configTest",
+            "id": "workspaceConfig",
             "type": "command",
             "command": "extension.commandvariable.file.content",
             "args": {
-              "fileName": "${pickFile:whichWork}/.vscode/settings.json",
+              "fileName": "${remember:chosenWorkspace}/.vscode/settings.json",
               "json": "content['test.setting']",
               "default": "missing",
-              "pickFile": {
-                "whichWork": {
-                  "description": "Which Workspace?",
-                  "include": "**/start.txt",
-                  "display": "fileName",
-                  "showDirs": true,
-                  "label"
-                }
               }
             }
-          },   {
-            "id": "testWork",
+          ,   {
+            "id": "chosenFile",
             "type": "command",
             "command": "extension.commandvariable.file.pickFile",
             "args": {
-                "description": "Which Workspace?",
-                "include": "**/start.txt",
-                "display": "fullPath",
-                "showDirs": true
+                "description": "Which File to StartN?",
+                "include": "**/*.txt",
+                "display": "fileName",
+                "fromWorkspace": true,
+                "keyRemember" : "chosenFile"
+              }
             }
+          ,{
+            "id": "chosenWorkspace",
+            "type": "command",
+            "command": "extension.commandvariable.transform",
+            "args": {
+                "text": "${remember:chosenFile}",
+                 "find": "^(.*[\\\\\/])[^\\\\/]+$",
+                 "replace" : "$1",
+                 "flags:": "g",
+              }
           }
     ]
 }
